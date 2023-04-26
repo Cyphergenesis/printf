@@ -10,7 +10,7 @@ void display_buffer(char buffer[], int *index_buffer);
 int _printf(const char *format, ...)
 {
 	int i;
-	int flags, width, precision, size;
+	int flags, width, precision, size = 0;
 	int index_buffer = 0, print = 0, print_ch = 0;
 	va_list list;
 	char buffer[BUFFER_SIZE];
@@ -26,7 +26,7 @@ int _printf(const char *format, ...)
 		{
 			buffer[index_buffer++] = format[i];
 			if (index_buffer == BUFFER_SIZE)
-				display_buffer(buffer, &index_buffer)
+				display_buffer(buffer, &index_buffer);
 					print_ch++;
 		}
 		else
