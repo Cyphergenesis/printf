@@ -35,10 +35,10 @@ int flags, int width, int precision, int size)
 	if (width > length)
 	{
 		for (i = 0; i < width - length; i++)
-		{
 			buffer[i] = pad;
+
 		buffer[i] = '\0';
-		}
+
 		if (flags & _MINUS_)
 		{
 return (write(1, &buffer[index], length) + write(1, &buffer[0],
@@ -86,9 +86,8 @@ int _write_char(char c, char buffer[], int flags, int width, int
 	return (write(1, &buffer[0], 1) + write(1, &buffer[BUFFER_SIZE
 				- i - 1], width - 1));
 		else
-
-	return (write(1, &buffer[BUFFER_SIZE - i - 1], width - 1) + 
-			write(1, &buffer[0], 1));
+		return (write(1, &buffer[BUFFER_SIZE - i - 1], width -
+					1) + write(1, &buffer[0], 1));
 	}
 	return (write(1, &buffer[0], 1));
 }
@@ -121,8 +120,8 @@ int display_num(int non_negative, int index, char buffer[], int flags,
 		ch = '+';
 	else if (flags & _SPACE_)
 		ch = ' ';
-	return (write_buffer(index, buffer, flags, width, precision, 
-			length, pad, ch));
+	return (write_buffer(index, buffer, flags, width, precision,
+				length, pad, ch));
 }
 
 /**
