@@ -56,7 +56,7 @@ int write_upper_lower(va_list list, char map_to[], char buffer[], int
 int display_hex(va_list list, char buffer[], int flags, int width,
 		int precision, int size)
 {
-	return (write_upper_lower(list, "0123456789ABCDEF", buffer,
+	return (write_upper_lower(list, "0123456789abcdef", buffer,
 				flags, 'x', width, precision, size));
 }
 /**
@@ -85,7 +85,7 @@ int precision, int size)
 		buffer[i--] = '0';
 	buffer[BUFFER_SIZE - 1] = '\0';
 
-	for (; val > 0;)
+	while (val > 0)
 	{
 		buffer[i--] = (val % 8) + '0';
 		val /= 8;
@@ -97,7 +97,6 @@ int precision, int size)
 				size));
 
 }
-
 /**
  *display_unsigned - prints unsigned number
  *@list: list of argument
