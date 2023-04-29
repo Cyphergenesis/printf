@@ -16,7 +16,7 @@ int get_flags(const char *format, int *i)
 		for (cur = *i + 1; format[cur] != '\0'; cur++)
 		{
 			for (k = 0; flags_ch[k] != '\0'; k++)
-			{
+			
 			if (format[cur] == flags_ch[k])
 			{
 				flags |= flags_str[k];
@@ -24,7 +24,7 @@ int get_flags(const char *format, int *i)
 			}
 			if (flags_ch[k] == 0)
 				break;
-			}
+			
 		}
 	*i = cur - 1;
 	return (flags);
