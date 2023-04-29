@@ -138,19 +138,19 @@ int display_num(int non_negative, int index, char buffer[], int flags,
 *Return: Number of printed characters
 */
 int write_buffer(int index, char buffer[], int flags, int width, int
-		precision, int length, char pad, char ch)
+		prec, int length, char pad, char ch)
 {
 	int i, pad_start = 1;
 
-	if (precision == 0 && index == BUFFER_SIZE - 2 &&
+	if (prec == 0 && index == BUFFER_SIZE - 2 &&
 			buffer[index] == '0' && width == 0)
 		return (0);
-	if (precision == 0 && index == BUFFER_SIZE - 2 &&
+	if (prec == 0 && index == BUFFER_SIZE - 2 &&
 			buffer[index] == '0')
 		buffer[index] = pad = ' ';
-	if (precision > 0 && precision < length)
+	if (prec > 0 && prec < length)
 		pad = ' ';
-	while (precision > length)
+	while (prec > length)
 		buffer[--index] = '0', length++;
 	if (ch != 0)
 		length++;
@@ -205,19 +205,17 @@ int _pointer_write(char buffer[], int index, int length, int width,
 	if (width > length)
 	{
 		for (i = 3; i < width - length + 3; i++)
-		{
-			buffer[i] = pad;
+				buffer[i] = pad;
 			buffer[i] = '\0';
-		}
+	
 		if (flags & _MINUS_ && pad == ' ')
 		{
 			buffer[--index] = 'x';
 			buffer[--index] = '0';
-			if (ch != '\0')
+			if (ch)
 				buffer[--index] = ch;
-			return (write(1, &buffer[index], length) +
-		write(1, &buffer[3], i - 3));
-	}
+	return (write(1, &buffer[index], length) + write(1, &buffer[3], i - 3));
+		}
 	else if (!(flags & _MINUS_) && pad == ' ')
 	{
 		buffer[--index] = 'x';
@@ -238,7 +236,7 @@ int _pointer_write(char buffer[], int index, int length, int width,
 	}
 	buffer[--index] = 'x';
 	buffer[--index] = '0';
-	if (ch != '\0')
+	if (ch)
 	buffer[--index] = ch;
 	return (write(1, &buffer[index], BUFFER_SIZE - index - 1));
 }
