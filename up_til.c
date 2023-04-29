@@ -33,7 +33,6 @@ int _prints_all(char c)
 {
 	if (c >= 32 && c < 127)
 	return (1);
-	else
 	return (0);
 }
 
@@ -47,10 +46,10 @@ int _prints_all(char c)
 long int change_size_number(long int num, int size)
 {
 	if (size == _LONG_)
-	return (num);
+		return (num);
 	else if (size == _SHORT_)
 
-	return ((short)num);
+		return ((short)num);
 
 	return ((int)num);
 }
@@ -65,7 +64,6 @@ int verify_is_digit(char c)
 {
 	if (c >= '0' && c <= '9')
 	return (1);
-	else
 	return (0);
 }
 
@@ -79,9 +77,9 @@ int verify_is_digit(char c)
 long int convert_unsignd(unsigned long int num, int size)
 {
 	if (size == _LONG_)
-	return (num);
+		return (num);
 	else if (size == _SHORT_)
-	return ((unsigned short)num);
+		return ((unsigned short)num);
 
 	return ((unsigned int)num);
 }
