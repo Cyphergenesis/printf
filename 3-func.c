@@ -29,6 +29,7 @@ int non_print(va_list list, char buffer[], int flags, int width, int
 			buffer[j + offset] = ptr[j];
 		else
 		offset += _append_hex(ptr[j], buffer, j + offset);
+	j++;
 	}
 	buffer[j + offset] = '\0';
 	return (write(1, buffer, j + offset));
@@ -50,7 +51,7 @@ int display_pointer(va_list list, char buffer[], int flags, int width,
 	char set_to[] = "0123456789abcdef";
 	char more = 0, snt = ' ';
 	unsigned long val_add;
-	int index = BUFFER_SIZE - 2, length, add = 1;
+	int index = BUFFER_SIZE - 2, length = 2, add = 1;
 	void *store = va_arg(list, void*);
 
 	UNUSED(width);
@@ -63,10 +64,11 @@ int display_pointer(va_list list, char buffer[], int flags, int width,
 
 	val_add = (unsigned long)store;
 
-	for (length = 0; val_add > 0; length++)
+	while (val_add > 0)
 	{
 		buffer[index--] = set_to[val_add % 16];
 		val_add /= 16;
+		length++;
 	}
 	if ((flags & _ZERO_) && !(flags & _MINUS_))
 		snt = '0';
@@ -108,15 +110,13 @@ int reverse_print(va_list list, char buffer[], int flags, int width,
 		UNUSED(precision);
 		ptr = "(null)";
 	}
-	for (n = 0; ptr[n]; n++)
+	for (n = 0; ptr[n]; n++);
 
-	n -= 1;
-	while (n >= 0)
+	for(n = n - 1; n >= 0; n--)
 	{
-		char y =  ptr[n];
+		char m = ptr[n];
 
-		write(1, &y, 1);
-		n--;
+		write(1, &m, 1);
 		count++;
 	}
 	return (count);
@@ -156,7 +156,7 @@ int rot13_string(va_list list, char buffer[], int flags, int width,
 	{
 		for (k = 0; upper_lower[k]; k++)
 		{
-			if (upper_lower[k] == ptr[k])
+			if (upper_lower[k] == ptr[i])
 			{
 				u = mixed[k];
 				write(1, &u, 1);
