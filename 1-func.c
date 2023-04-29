@@ -53,19 +53,15 @@ int precision, int size)
 
 	}
 
-	i = 0, sum = 0, count = 0;
-
-	while (i < 32)
+	for (i = 0, sum = 0, count = 0; i < 32; i++)
 	{
 		sum += a[i];
 		if (sum || i == 31)
 		{
 			char p = '0' + a[i];
-
 			write(1, &p, 1);
 			count++;
 		}
-		i++;
 	}
 	return (count);
 }
@@ -106,7 +102,7 @@ int _percent(va_list list, char buffer[], int flags, int width,
 int display_string(va_list list, char buffer[], int flags, int width,
 int precision, int size)
 {
-	int i, len;
+	int i, len = 0;
 	char *ptr = va_arg(list, char*);
 
 	UNUSED(buffer);
@@ -122,9 +118,9 @@ int precision, int size)
 			ptr = " ";
 	}
 
-	for (len = 0; ptr[len] != '\0'; len++)
-
-		if (precision >= 0 && precision < len)
+	while (ptr[len] != '\0')
+		len++;
+	if (precision >= 0 && precision < len)
 			len = precision;
 	if (width > len)
 	{
@@ -132,12 +128,12 @@ int precision, int size)
 		{
 			write(1, &ptr[0], len);
 			for (i = width - len; i > 0; i--)
-				write(1, "", 1);
+				write(1, " ", 1);
 			return (width);
 		}
 		else
 		{
-			for (i = width - len; i > 0; i++)
+			for (i = width - len; i > 0; i--)
 			{
 				write(1, " ", 1);
 				write(1, &ptr[0], len);
