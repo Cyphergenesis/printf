@@ -19,29 +19,28 @@ int _printf(const char *format, ...)
 		return (-1);
 	va_start(list, format);
 
-	i = 0;
-	while (format && format[i] != '\0')
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
 		if (format[i] != '%')
 		{
 			buffer[index_buffer++] = format[i];
 			if (index_buffer == BUFFER_SIZE)
-				display_buffer(buffer, &index_buffer);
-					print_ch++;
+			display_buffer(buffer, &index_buffer);
+			print_ch++;
 		}
-		else
+	else
 		{
 			display_buffer(buffer, &index_buffer);
 			flags = get_flags(format, &i);
 			width = get_width(format, &i, list);
 			precision = get_precision(format, &i, list);
+			size = get_size(format, &i);
 			++i;
 	print = create_print(format, &i, list, buffer, flags, width, precision, size);
 		if (print == -1)
 		return (-1);
 	print_ch += print;
 		}
-		i++;
 	}
 	display_buffer(buffer, &index_buffer);
 	va_end(list);
